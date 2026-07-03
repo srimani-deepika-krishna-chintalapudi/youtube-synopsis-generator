@@ -1,4 +1,5 @@
-﻿const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+// In frontend/src/apiService.js
+const API_BASE_URL = "https://yousynopsis.onrender.com";
 
 function getToken() {
   return localStorage.getItem("token");
@@ -18,7 +19,7 @@ async function request(path, options = {}) {
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const response = await fetch(`${API_BASE}${path}`, {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     headers,
   });
