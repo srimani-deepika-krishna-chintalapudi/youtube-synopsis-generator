@@ -39,14 +39,29 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+default_allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://yousynopsis.vercel.app",
+]
+
+env_allowed_origins = [
+    origin.strip().rstrip("/")
+    for origin in os.environ.get("CORS_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-    "https://yousynopsis-git-main-nithin-reddys-projects-d430f393.vercel.app"],
+    allow_origins=[*default_allowed_origins, *env_allowed_origins],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 def ensure_admin_user() -> None:
     load_dotenv(override=True)
