@@ -1,5 +1,6 @@
-// In frontend/src/apiService.js
-const API_BASE_URL = "https://yousynopsis.onrender.com";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? "http://127.0.0.1:8000" : "https://yousynopsis.onrender.com");
 
 function getToken() {
   return localStorage.getItem("token");
@@ -51,7 +52,7 @@ async function request(path, options = {}) {
 }
 
 export const api = {
-  baseUrl: API_BASE,
+  baseUrl: API_BASE_URL,
 
   async register(payload) {
     return request("/api/auth/register", {
