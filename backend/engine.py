@@ -15,13 +15,14 @@ load_dotenv()
 AI_BASE_URL = os.getenv("AI_BASE_URL", "https://api.cerebras.ai/v1")
 AI_MODEL = os.getenv("AI_MODEL", "gpt-oss-120b")
 MAX_TRANSCRIPT_CHARS = int(os.getenv("MAX_TRANSCRIPT_CHARS", "28000"))
-TRANSCRIPT_SERVICE_HOST = os.getenv("TRANSCRIPT_SERVICE_HOST", "").strip()
-TRANSCRIPT_SERVICE_PORT = os.getenv("TRANSCRIPT_SERVICE_PORT", "3001").strip()
-TRANSCRIPT_SERVICE_URL = (
-    os.getenv("TRANSCRIPT_SERVICE_URL")
-    or (f"http://{TRANSCRIPT_SERVICE_HOST}:{TRANSCRIPT_SERVICE_PORT}" if TRANSCRIPT_SERVICE_HOST else None)
-    or "http://transcript-service:3001"
+TRANSCRIPT_SERVICE_URL = os.getenv(
+    "TRANSCRIPT_SERVICE_URL",
+    "https://transcript-service-zu4i.onrender.com"
 ).rstrip("/")
+
+TRANSCRIPT_SERVICE_TIMEOUT = float(
+    os.getenv("TRANSCRIPT_SERVICE_TIMEOUT", "30")
+)
 TRANSCRIPT_SERVICE_TIMEOUT = float(os.getenv("TRANSCRIPT_SERVICE_TIMEOUT", "30"))
 
 logger = logging.getLogger(__name__)
